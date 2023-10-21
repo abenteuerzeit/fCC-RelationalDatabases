@@ -1,66 +1,44 @@
-#!/bin/bash
-# Script to insert data from courses.csv and students.csv into students database
-PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
-echo $($PSQL "TRUNCATE students, majors, courses, majors_courses")
+#! /bin/bash
 
-cat courses.csv | while IFS="," read MAJOR COURSE
-do 
-  if [[ $MAJOR != "major" ]]
-    then
-    #get major_id
-    MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major = '$MAJOR' ")
-    # if not found
-    if [[ -z $MAJOR_ID ]]
-    then
-      # insert major
-      INSERT_MAJOR_RESULT=$($PSQL "INSERT INTO majors(major) VALUES('$MAJOR') ")
-      if [[ $INSERT_MAJOR_RESULT == "INSERT 0 1" ]]
-      then
-        echo "Inserted into majors, $MAJOR"
-      fi
-      # get new major_id
-      MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR' ")
-    fi
-    # get course_id
-    COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
-    # if not found
-    if [[ -z $COURSE_ID ]]
-    then
-      # insert course
-      INSERT_COURSE_RESULT=$($PSQL "INSERT INTO courses(course) VALUES('$COURSE')")
-      if [[ $INSERT_COURSE_RESULT == "INSERT 0 1" ]]
-      then
-        echo "Inserted into courses, $COURSE"
-      fi
-      # get new course_id
-      COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
-    fi
-      # insert into majors_courses
-      INSERT_MAJORS_COURSES_RESULT=$($PSQL "INSERT INTO majors_courses(major_id, course_id) VALUES($MAJOR_ID, $COURSE_ID)")
-      if [[ $INSERT_MAJORS_COURSES_RESULT == "INSERT 0 1" ]]
-      then
-        echo "Inserted into majors_courses, $MAJOR : $COURSE"
-      fi
-  fi
-done
+CSV_FILE="./games.csv"
 
-cat students.csv | while IFS="," read FIRST LAST MAJOR GPA
+if [[ $1 == "test" ]]
+then
+  PSQL="psql --username=postgres --dbname=worldcuptest -t --no-align -c"
+else
+  PSQL="psql --username=freecodecamp --dbname=worldcup -t --no-align -c"
+fi
+
+# Clear rows 
+RESET_ROWS=$($PSQL "TRUNCATE TABLE games, teams")
+echo $RESET_ROWS
+
+cat $CSV_FILE | while IFS="," read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
 do
-  if [[ $FIRST != "first_name" ]]
+  if [[ $YEAR != "year" ]]
   then
-    # get major_id
-    MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
-    # if not found
-    if [[ -z $MAJOR_ID ]]
-    then
-    # set to null
-    MAJOR_ID=null
-    fi
-    # insert student
-    INSERT_STUDENT_RESULT=$($PSQL "INSERT INTO students(first_name, last_name, major_id, gpa) VALUES('$FIRST', '$LAST', $MAJOR_ID, $GPA)")
-    if [[ $INSERT_STUDENT_RESULT == "INSERT 0 1" ]]
-    then
-      echo "Inserted into students, $FIRST $LAST"
-    fi
+    function GET_TEAM_ID() {
+      local __name=$1
+        #get team_id
+        local __teamId=$($PSQL "SELECT team_id FROM teams WHERE name = '$__name' ")
+        # if not found
+        if [[ -z $__teamId ]]
+        then
+          # insert team
+          local __insertTeamResult=$($PSQL "INSERT INTO teams(name) VALUES('$__name') ")
+          __teamId=$($PSQL "SELECT team_id FROM teams WHERE name='$__name' ")
+        fi
+        echo $__teamId
+    }
+
+    INSERT_GAME_RESULT=$($PSQL "
+      INSERT INTO games(year, round, winner_id, opponent_id, winner_goals, opponent_goals) 
+      VALUES($YEAR, '$ROUND', $(GET_TEAM_ID $WINNER), $(GET_TEAM_ID $OPPONENT), $WINNER_GOALS, $OPPONENT_GOALS)")
   fi
 done
+
+echo "team_id|name"
+echo -e "$($PSQL "SELECT * from teams")\n"
+
+echo "game_id|year|round|winner_id|opponent_id|winner_goals|opponent_goals"
+echo -e "$($PSQL "SELECT * from games")\n"
