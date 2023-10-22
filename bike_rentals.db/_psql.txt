@@ -1,0 +1,55 @@
+$ echo SQL terminal
+$ psql --username=freecodecamp --dbname=postgres
+postgres=> \l
+postgres=> CREATE DATABASE bikes;
+postgres=> \l
+postgres=> \c bikes
+bikes=> CREATE TABLE bikes();
+bikes=> \d
+bikes=> ALTER TABLE bikes ADD COLUMN bike_id SERIAL PRIMARY KEY;
+bikes=> \d bikes
+bikes=> ALTER TABLE bikes ADD COLUMN type VARCHAR(50) NOT NULL;
+bikes=> \d bikes
+bikes=> ALTER TABLE bikes ADD COLUMN size INT NOT NULL;
+bikes=> ALTER TABLE bikes ADD COLUMN available BOOLEAN NOT NULL DEFAULT TRUE;
+bikes=> \d bikes
+bikes=> CREATE TABLE customers();
+bikes=> ALTER TABLE customers ADD COLUMN customer_id SERIAL PRIMARY KEY;
+bikes=> \d customers
+bikes=> ALTER TABLE customers ADD COLUMN phone VARCHAR(15) NOT NULL UNIQUE;
+bikes=> ALTER TABLE customers ADD COLUMN name VARCHAR(40) NOT NULL;
+bikes=> \d customers
+bikes=> CREATE TABLE rentals();
+bikes=> ALTER TABLE rentals ADD COLUMN rental_id SERIAL PRIMARY KEY;
+bikes=> \d rentals
+bikes=> ALTER TABLE rentals ADD COLUMN customer_id INT NOT NULL;
+bikes=> ALTER TABLE rentals ADD FOREIGN KEY(customer_id) REFERENCES customers(customer_id);
+bikes=> \d rentals
+bikes=> ALTER TABLE rentals ADD COLUMN bike_id INT NOT NULL;
+bikes=> ALTER TABLE rentals ADD FOREIGN KEY(bike_id) REFERENCES bikes(bike_id);
+bikes=> \d rentals
+bikes=> ALTER TABLE rentals ADD COLUMN date_rented DATE NOT NULL DEFAULT NOW();
+bikes=> \d rentals
+bikes=> ALTER TABLE rentals ADD COLUMN date_returned DATE;
+bikes=> \d rentals
+bikes=> \d
+bikes=> INSERT INTO bikes(type, size) VALUES('Mountain', 27);
+bikes=> SELECT * FROM bikes;
+bikes=> INSERT INTO bikes(type, size) VALUES('Mountain', 28);
+bikes=> INSERT INTO bikes(type, size) VALUES('Mountain', 29);
+bikes=> INSERT INTO bikes(type, size) VALUES('Road', 27);
+bikes=> SELECT * FROM bikes;
+bikes=> INSERT INTO bikes(type, size) VALUES('Road', 28), ('Road', 29);
+bikes=> INSERT INTO bikes(type, size) VALUES('BMX', 19), ('BMX', 20), ('BMX', 21);
+bikes=> SELECT * FROM bikes;
+bikes=> UPDATE bikes SET available = false WHERE available = true;
+bikes=> UPDATE bikes SET available = true WHERE type != 'BMX';
+bikes=> SELECT * FROM bikes LEFT JOIN rentals USING(bike_id);
+bikes=> SELECT * FROM bikes INNER JOIN rentals USING(bike_id);
+bikes=> SELECT * FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id);
+bikes=> SELECT * FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE date_returned IS NULL AND phone='555-5555';
+bikes=> SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE date_returned IS NULL AND phone='555-5555';
+bikes=> SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE date_returned IS NULL AND phone='555-5555' ORDER BY bike_id;
+bikes=> SELECT * FROM rentals INNER JOIN customers USING(customer_id);
+bikes=> SELECT * FROM rentals INNER JOIN customers USING(customer_id) WHERE phone = '555-5555' AND bike_id = 1 AND date_returned IS NULL;
+bikes=> SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone = '555-5555' AND bike_id = 1 AND date_returned IS NULL;

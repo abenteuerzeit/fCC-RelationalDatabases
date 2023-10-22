@@ -1,0 +1,23 @@
+$ touch bike-shop.sh
+$ echo '#!/bin/bash' > bike-shop.sh
+$ chmod +x bike-shop.sh
+$ ./bike-shop.sh
+$ [[ a =~ [0-9] ]]; echo $?
+$ [[ a1 =~ [0-9] ]]; echo $?
+$ [[ a1 =~ ^[0-9]$ ]]; echo $?
+$ [[ 1 =~ ^[0-9]$ ]]; echo $?
+$ [[ 11 =~ ^[0-9]$ ]]; echo $?
+$ [[ 11 =~ ^[0-9]+$ ]]; echo $?
+$ [[ ! 11 =~ ^[0-9]+$ ]]; echo $?
+$ echo '28 | Mountain' | sed 's/ /=/g'
+$ echo ' M e '
+$ echo "$(echo ' M e ')."
+$ echo "$(echo ' M e ' | sed 's/ //g' )."
+$ echo "$(echo ' M e ' | sed 's/^ //g' )."
+$ echo "$(echo '   M e ' | sed 's/^ //g' )."
+$ echo "$(echo '   M e ' | sed 's/^ *//g' )."
+$ echo "$(echo '   M e ' | sed 's/ $//g' )."
+$ echo "$(echo '   M e   ' | sed 's/ $//g' )."
+$ echo "$(echo '   M e   ' | sed 's/ *$//g' )."
+$ man sed
+$ echo "$(echo '   M e   ' | sed -E 's/^ *| *$//g' )."
