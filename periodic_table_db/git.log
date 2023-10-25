@@ -1,0 +1,47 @@
+commit 5b167c11b9668cbe5d7f0db614b89805e1036281
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:32:32 2023 -0400
+
+    refactor: remove task comments
+
+commit 6c7c96454fcb162157a8a191c0e0b150e9ea2a9c
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:31:57 2023 -0400
+
+    feat: Display element details from database query results
+
+commit 8d74a2b7917c7e9a80804130c8a32281b8038305
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:30:56 2023 -0400
+
+    feat: Add error handling for missing elements in the database
+
+commit 29b928e34fae983a57ab552af93e77ecab676e67
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:20:57 2023 -0400
+
+    feat: Enhance argument parsing to handle atomic_number, symbol, and name
+
+commit 0d8cef104055c0ca520859a16af9fb5bff9b97d5
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:16:39 2023 -0400
+
+    feat: Fetch element details from the database
+
+commit 31aa640945ed865db9732b5987ae2d743f3af2a5
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:10:58 2023 -0400
+
+    feat: Setup initial script and database connection
+
+commit acece0377f48c231cafab1e29d16a96557324912
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 12:05:06 2023 -0400
+
+    feat: add argument check to exit script if none provided
+
+commit 111c350ea5e746de3800825c4c0c1dc7d544e994
+Author: abenteuerzeit <dr.adrian.mroz@outlook.com>
+Date:   Wed Oct 25 11:53:32 2023 -0400
+
+    Initial commit
