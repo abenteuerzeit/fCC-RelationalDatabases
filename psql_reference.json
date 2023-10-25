@@ -1,0 +1,179 @@
+{
+    "database_operations": {
+        "database": {
+            "create": "CREATE DATABASE <database_name>;",
+            "drop": "DROP DATABASE <database_name>;",
+            "rename": "ALTER DATABASE <database_name> RENAME TO <new_name>;"
+        },
+        "schema": {
+            "create": "CREATE SCHEMA <schema_name>;",
+            "set_search_path": "SET SEARCH_PATH = <schema_name>;",
+            "drop": "DROP SCHEMA IF EXISTS <schema_name> CASCADE;"
+        },
+        "table": {
+            "DDL (Data Definition Language)": {
+                "create": "CREATE TABLE <table_name>(<column_definitions>);",
+                "drop": "DROP TABLE <table_name>;",
+                "rename": "ALTER TABLE <table_name> RENAME TO <new_name>;",
+                "add_column": "ALTER TABLE <table_name> ADD COLUMN <column_name> <data_type> [constraints];",
+                "modify_column": {
+                    "type": "ALTER TABLE <table_name> ALTER COLUMN <column_name> TYPE <new_data_type>;",
+                    "set_default": "ALTER TABLE <table_name> ALTER COLUMN <column_name> SET DEFAULT <default_value>;",
+                    "drop_default": "ALTER TABLE <table_name> ALTER COLUMN <column_name> DROP DEFAULT;"
+                },
+                "set_not_null": "ALTER TABLE <table_name> ALTER COLUMN <column_name> SET NOT NULL;",
+                "add_unique": "ALTER TABLE <table_name> ADD UNIQUE(<column_name>);",
+                "set_primary_key": "ALTER TABLE <table_name> ADD PRIMARY KEY (<column_name>);",
+                "add_foreign_key": "ALTER TABLE <table_name> ADD FOREIGN KEY (<column_name>) REFERENCES <referenced_table>(<referenced_column>);",
+                "add_check": "ALTER TABLE <table_name> ADD CHECK (<condition>);",
+                "create_with_constraints": "CREATE TABLE <table_name>(<column_definitions>, PRIMARY KEY(<column_name>), FOREIGN KEY(<column_name>) REFERENCES <referenced_table>(<referenced_column>) constraint_name);",
+                "truncate": "TRUNCATE <table_name>;"
+            },
+            "DQL (Data Query Language)": {
+                "select_all": "SELECT * FROM <table_name>;",
+                "select_distinct": "SELECT DISTINCT <column_name> FROM <table_name>;",
+                "filter_single_condition": "SELECT * FROM <table_name> WHERE <column_name> = <value>;",
+                "filter_multiple_conditions": "SELECT * FROM <table_name> WHERE <condition_1> AND/OR <condition_2> ...;",
+                "filter_with_like": "SELECT * FROM <table_name> WHERE <column_name> LIKE <pattern>;",
+                "order_by_multiple_columns": "SELECT * FROM <table_name> WHERE <conditions> ORDER BY <column_1>, <column_2> ...;",
+                "limit_results": "SELECT * FROM <table_name> [WHERE <conditions>] ORDER BY <column> LIMIT <number>;",
+                "filter_null_values": "SELECT * FROM <table_name> WHERE <column_name> IS NULL;",
+                "case_statement": "SELECT *, CASE WHEN <condition_1> THEN <value_1> WHEN <condition_2> THEN <value_2> ... ELSE <default_value> END AS <alias_name> FROM <table_name>;",
+                "count_all": "SELECT COUNT(*) FROM <table_name>;",
+                "aggregate_function": "SELECT <aggregate_function>(<column_name>) FROM <table_name> [WHERE <conditions>];",
+                "group_by_single_column": "SELECT <column_name>, <aggregate_function>(<column_name>) FROM <table_name> GROUP BY <column_name>;",
+                "group_by_order_limit": "SELECT <column_name>, <aggregate_function>(<column_name>) FROM <table_name> GROUP BY <column_name> ORDER BY <column_name> LIMIT <number>;",
+                "group_by_having": "SELECT <column_name>, <aggregate_function>(<column_name>) FROM <table_name> GROUP BY <column_name> HAVING <conditions>;"
+            },
+            "DML (Data Manipulation Language)": {
+                "insert_values": "INSERT INTO <table_name> VALUES (<values>);",
+                "update_with_join": "UPDATE <table_name_1> SET <column_name_1> = <table_name_2.column_name_2> FROM <table_name_2> WHERE <table_name_1.some_column> = <table_name_2.some_column>;",
+                "cross_join": "SELECT <columns> FROM <table_name_1> AS <alias_1> CROSS JOIN <table_name_2> AS <alias_2>;",
+                "implicit_join": "SELECT <columns> FROM <table_name_1>, <table_name_2>;",
+                "left_join": "SELECT <columns> FROM <table_name_1> AS <alias_1> LEFT JOIN <table_name_2> AS <alias_2> ON <alias_1.column_name> = <alias_2.column_name>;",
+                "inner_join": "SELECT <columns> FROM <table_name_1> INNER JOIN <table_name_2> ON <table_name_1.column_name> = <table_name_2.column_name>;",
+                "union": "SELECT <columns> FROM <table_name_1> UNION SELECT <columns> FROM <table_name_2>;"
+            },
+            "Maintenance & Analysis": {
+                "vacuum": "VACUUM <table_name>;",
+                "vacuum_full": "VACUUM FULL <table_name>;",
+                "check_table_size": "SELECT pg_size_pretty(pg_table_size('<table_name>')) AS <alias_name>;",
+                "check_indexes_size": "SELECT pg_size_pretty(pg_indexes_size('<table_name>')) AS <alias_name>;",
+                "check_total_relation_size": "SELECT pg_size_pretty(pg_total_relation_size('<table_name>')) AS <alias_name>;"
+            },
+            "Miscellaneous": {
+                "alias_column": "SELECT <column_name> AS <alias_name> FROM <table_name>;",
+                "group_order_by_position": "SELECT <column_name>, <aggregate_function>(<column_name>) FROM <table_name> GROUP BY <position> ORDER BY <position>;",
+                "multiple_aggregates": "SELECT <aggregate_function_1>(<column_name_1>), <aggregate_function_2>(<column_name_2>) FROM <table_name>;",
+                "sum_column": "SELECT SUM(<column_name>) FROM <table_name> [WHERE <conditions>];",
+                "group_by_having_order": "SELECT <column_name>, <aggregate_function>(<column_name>) FROM <table_name> GROUP BY <column_name> HAVING <conditions> ORDER BY <column_name>;",
+                "sum_specific_values": "SELECT (<value_1> + <value_2> + ... + <value_n>);",
+                "url_pattern_match": "SELECT * FROM <table_name> WHERE <column_name> LIKE <url_pattern>;",
+                "case_with_url_pattern": "SELECT <column_name>, CASE WHEN <column_name> LIKE <pattern_1> THEN <value_1> WHEN <column_name> LIKE <pattern_2> THEN <value_2> ... END AS <alias_name> FROM <table_name> WHERE <conditions> ORDER BY <column_name>;",
+                "group_with_case": "SELECT CASE WHEN <column_name> LIKE <pattern_1> THEN <value_1> WHEN <column_name> LIKE <pattern_2> THEN <value_2> ... END AS <alias_name>, COUNT(<column_name>) FROM <table_name> WHERE <conditions> GROUP BY <alias_name> ORDER BY <alias_name>;",
+                "built_in_function_with_grouping": "SELECT <function_name>(<column_name>) AS <alias_name>, <aggregate_function>(<column_name>), COUNT(*) FROM <table_name> WHERE <conditions> GROUP BY <alias_name> ORDER BY <alias_name_1>, <alias_name_2>;",
+                "alias_for_columns": "SELECT <column_name> AS <alias_name> FROM <table_name>;",
+                "alias_for_tables": "SELECT <column_name> FROM <table_name> AS <alias_name>;",
+                "max_aggregate": "SELECT MAX(<column_name>) AS <alias_name> FROM <table_name>;",
+                "group_by_having_count": "SELECT <column_name>, COUNT(<column_name>) FROM <table_name> GROUP BY <column_name> HAVING COUNT(<column_name>) > <value>;",
+                "subquery_in_where": "SELECT <columns> FROM <table_name> WHERE <column_name> = (SELECT <aggregate_function>(<column_name>) FROM <table_name>);",
+                "count_with_condition_and_group": "SELECT <column_name>, COUNT(<column_name>) FROM <table_name> WHERE <conditions> GROUP BY <column_name>;",
+                "filter_with_boolean": "SELECT * FROM <table_name> WHERE <column_name> = <boolean_value>;",
+                "join_multiple_tables": "SELECT <columns> FROM <table_name_1> INNER JOIN <table_name_2> ON <table_name_1.column_name> = <table_name_2.column_name>;",
+                "order_by_limit": "SELECT <columns> FROM <table_name> ORDER BY <column_name> DESC LIMIT <number>;",
+                "concat_columns": "SELECT CONCAT(<column_1>, ' ', <column_2>) AS <alias_name> FROM <table_name>;",
+                "count_with_condition": "SELECT COUNT(<column_name>) FROM <table_name> WHERE <conditions>;"
+            }
+        }
+    },
+    "advanced_sql": {
+        "common_table_expression": {
+            "with_cte": "WITH <cte_name> AS (SELECT <columns> FROM <table_name> WHERE <conditions>) SELECT <columns> FROM <cte_name> WHERE <conditions>;"
+        },
+        "constraints": {
+            "primary_key": "ALTER TABLE <table_name> ADD PRIMARY KEY(<column_name>);",
+            "foreign_key": "ALTER TABLE <table_name> ADD FOREIGN KEY(<column_name>) REFERENCES <referenced_table>(<referenced_column>);",
+            "unique": "ALTER TABLE <table_name> ADD CONSTRAINT <constraint_name> UNIQUE (<column_name>);",
+            "check": "ALTER TABLE <table_name> ADD CONSTRAINT <constraint_name> CHECK(<condition>);",
+            "drop": "ALTER TABLE <table_name> DROP CONSTRAINT <constraint_name>;"
+        },
+        "index": {
+            "create": "CREATE INDEX <index_name> ON <table_name>(<column_names>);",
+            "create_with_condition": "CREATE INDEX <index_name> ON <table_name> (<column_names>) WHERE <condition>;",
+            "create_with_expression": "CREATE INDEX <index_name> ON <table_name>(<expression>);",
+            "drop": "DROP INDEX IF EXISTS <index_name>;",
+            "list_for_tables": "SELECT * FROM pg_indexes WHERE tablename IN (<table_names>);",
+            "list_for_tables_ordered": "SELECT * FROM pg_indexes WHERE tablename IN (<table_names>) ORDER BY tablename, indexname;"
+        },
+        "transaction": {
+            "start": "BEGIN;",
+            "commit": "COMMIT;",
+            "rollback": "ROLLBACK;"
+        },
+        "function": {
+            "create_or_replace": "CREATE OR REPLACE FUNCTION <function_name>() RETURNS TRIGGER AS $$ <function_body> $$ LANGUAGE PLPGSQL;"
+        },
+        "trigger": {
+            "create_before_update": "CREATE TRIGGER <trigger_name> BEFORE UPDATE ON <table_name> FOR EACH ROW [WHEN (<condition>)] EXECUTE PROCEDURE <function_name>();",
+            "create_after_insert": "CREATE TRIGGER <trigger_name> AFTER INSERT ON <table_name> FOR EACH STATEMENT EXECUTE PROCEDURE <function_name>();",
+            "drop": "DROP TRIGGER IF EXISTS <trigger_name> ON <table_name>;"
+        },
+        "data_loading": {
+            "load_from_file": "\\COPY <table_name> FROM '<file_path>' DELIMITER ',' CSV HEADER;"
+        },
+        "sequence": {
+            "set_value": "SELECT setval(pg_get_serial_sequence('<table_name>', '<column_name>'), (SELECT MAX(<column_name>) FROM <table_name>));"
+        },
+        "system_catalogs": {
+            "list_triggers": "SELECT * FROM information_schema.triggers;"
+        },
+        "role": {
+            "select_roles_with_superuser": "SELECT rolname FROM pg_roles WHERE rolsuper = true;",
+            "select_all_roles": "SELECT * FROM pg_roles ORDER BY rolsuper DESC;",
+            "select_current_role": "SELECT current_role;",
+            "create_role": "CREATE ROLE <role_name> WITH <attributes>;",
+            "create_role_with_parent": "CREATE ROLE <role_name> WITH <attributes> ROLE <parent_role>;",
+            "select_roles_without_pg_prefix": "SELECT rolname, rolsuper, rolcanlogin FROM pg_roles WHERE rolname NOT LIKE 'pg_%';",
+            "set_role": "SET ROLE <role_name>;"
+        },
+        "privilege": {
+            "grant_usage_on_schema": "GRANT USAGE ON SCHEMA <schema_name> TO <role_name>;",
+            "grant_select_on_all_tables": "GRANT SELECT ON ALL TABLES IN SCHEMA <schema_name> TO <role_name>;",
+            "grant_select_on_specific_columns": "GRANT SELECT (<column_names>) ON <table_name> to <role_name>;",
+            "select_table_privileges_for_role": "SELECT * FROM information_schema.table_privileges WHERE grantee = '<role_name>';"
+        },
+        "row_level_security": {
+            "create_policy": "CREATE POLICY <policy_name> ON <table_name> FOR SELECT TO <role_name> USING (<condition>);",
+            "enable_row_level_security": "ALTER TABLE <table_name> ENABLE ROW LEVEL SECURITY;"
+        },
+        "query_analysis": {
+            "explain_analyze": "EXPLAIN ANALYZE <query>;"
+        },
+        "timestamp": {
+            "current_timestamp": "SELECT NOW();"
+        },
+        "pg_hba": {
+            "host": "host <db> <user> <address> <auth_method>",
+            "hostssl": "hostssl <db> <user> <address> <auth_method>"
+        },
+        "postgresql_conf": {
+            "listen_addresses": "listen_addresses = '<addresses>'",
+            "port": "port = <port_number>",
+            "ssl": "ssl = <on/off>",
+            "log_connections": "log_connections = <yes/no>",
+            "log_destination": "log_destination = '<destination>'"
+        },
+        "role_management": {
+            "create_role": "CREATE ROLE <role_name>;",
+            "grant_on_table": "GRANT <permissions> ON <table_name> TO <role_name>;",
+            "grant_role": "GRANT <role_name_1>, <role_name_2> ... TO <user_or_role>;",
+            "create_role_with_login": "CREATE ROLE <role_name> WITH LOGIN;",
+            "revoke_on_table": "REVOKE ALL ON <table_name> FROM PUBLIC;"
+        },
+        "basic_operations": {
+            "insert": "INSERT INTO <table_name>(<column_names>) VALUES(<values>);",
+            "update": "UPDATE <table_name> SET <column_name> = <new_value> WHERE <condition>;",
+            "delete": "DELETE FROM <table_name> WHERE <condition>;"
+        }
+    }
+}
