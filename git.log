@@ -1,0 +1,243 @@
+    1  echo hello git
+    2  mkdir sql_reference
+    3  cd sql_reference/
+    4  git init
+    5  ls -a
+    6  git status
+    7  git checkout -b main
+    8  git status
+    9  touch README.md
+   10  echo "SQL Reference" >> README.md 
+   11  git status
+   12  git add README.md 
+   13  git status
+   14  touch sql_reference.json
+   15  git status
+   16  git add sql_reference.json 
+   17  git status
+   18  git commit -m "Initial commit"
+   19  git status
+   20  git log
+   21  git status
+   22  git diff
+   23  git add sql_reference.json 
+   24  git status
+   25  git commit -m "feat: add create database reference"
+   26  git log
+   27  git status
+   28  git diff
+   29  git add sql_reference.json 
+   30  git commit -m "feat: add drop database reference"
+   31  git log
+   32  git branch
+   33  git branch feat/add-create-table-reference
+   34  git branch
+   35  git checkout feat/add-create-table-reference
+   36  git branch
+   37  git status
+   38  git diff
+   39  git add sql_reference.json 
+   40  git commit -m "feat: add create table reference"
+   41  git log
+   42  git log --oneline
+   43  git checkout main
+   44  git log --oneline
+   45  git branch
+   46  git merge feat/add-create-table-reference
+   47  git log --oneline
+   48  git branch -d feat/add-create-table-reference
+   49  git branch
+   50  git checkout -b feat/add-drop-table-reference
+   51  git status
+   52  git diff
+   53  git add sql_reference.json 
+   54  git commit -m "feat: add drop table reference"
+   55  git checkout main
+   56  git branch
+   57  git merge feat/add-drop-table-reference
+   58  git branch -d feat/add-drop-table-reference
+   59  git checkout -b feat/add-column-references
+   60  git diff
+   61  git add .
+   62  git commit -m "feat: add column reference"
+   63  git log --oneline
+   64  git checkout main
+   65  git checkout -b fix/create-table-snytax
+   66  git checkout -b fix/create-table-syntax
+   67  git branch -d fix/create-table-snytax
+   68  git status
+   69  git diff
+   70  git add .
+   71  git commit -m "fix: create table snytax"
+   72  git commit --amend
+   73  git checkout main
+   74  git branch
+   75  git merge fix/create-table-syntax
+   76  git log --oneline
+   77  git branch -d fix/create-table-syntax
+   78  git checkout feat/add-column-reference
+   79  git branch
+   80  git checkout feat/add-column-references
+   81  git log --oneline
+   82  git rebase main
+   83  git log --oneline
+   84  git status
+   85  git diff
+   86  git add .
+   87  git commit -m "feat: add drop column reference"
+   88  git log --oneline
+   89  git checkout main
+   90  git checkout -b feat/add-insert-row-reference
+   91  git status
+   92  git diff
+   93  git add .
+   94  git commit -m "feat: add insert row reference"
+   95  git checkout main
+   96  git branch
+   97  git merge feat/add-insert-row-reference
+   98  git log --oneline
+   99  git checkout feat/add-column-references
+  100  git rebase
+  101  git rebase main
+  102  git status
+  103  git add sql_reference.json 
+  104  git status
+  105  git rebase --continue
+  106  git log --oneline
+  107  git status
+  108  git diff
+  109  git add .
+  110  git commit -m "feat: add rename column reference"
+  111  git branch
+  112  git checkout feat/add-insert-row-reference
+  113  git status
+  114  git stash
+  115  git status
+  116  git stash list
+  117  git stash pop
+  118  git stash list
+  119  git stash
+  120  git stash list
+  121  git stash show
+  122  git stash show -p
+  123  git stash apply
+  124  git stash list
+  125  git stash
+  126  git stash list
+  127  git stash show stash@{1}
+  128  git stash show stash@{1} -p
+  129  git stash drop 
+  130  git stash list
+  131  git checkout main
+  132  git branch
+  133  git branch -d feat/add-insert-row-reference
+  134  git checkout -b feat/add-more-row-references
+  135  git stash list
+  136  git stash pop
+  137  git stash list
+  138  git diff
+  139  git add .
+  140  git commit -m "feat: add update row reference"
+  141  git checkout main
+  142  git branch
+  143  git merge feat/add-more-row-references
+  144  git checkout feat/add-column-references
+  145  git rebase main
+  146  git status
+  147  git add .
+  148  git status
+  149  git rebase --continue
+  150  git log --oneline
+  151  git diff
+  152  git add .
+  153  git commit -m "feat: add primary key reference"
+  154  git diff
+  155  git add .
+  156  git commit -m "feat: add foreign key reference"
+  157  git branch
+  158  git checkout feat/add-more-row-references
+  159  git diff
+  160  git add .
+  161  git commit -m "feat: add delete row reference"
+  162  git checkout main
+  163  git branch
+  164  git merge feat/add-more-row-references
+  165  git branch -d feat/add-more-row-references
+  166  git checkout -b fix/add-missing-rename-references
+  167  git diff
+  168  git add .
+  169  git commit -m "fix: add missing rename database reference"
+  170  git checkout feat/add-column-references
+  171  git rebase main
+  172  git status
+  173  git add .
+  174  git status
+  175  git rebase --continue
+  176  git diff
+  177  git add .
+  178  git commit -m "feat: add unique reference"
+  179  git reset HEAD~1
+  180  git log --oneline
+  181  git status
+  182  git diff
+  183  git add .
+  184  git commit -m "feat: add unique reference"
+  185  git revert HEAD
+  186  git log --oneline
+  187  git show
+  188  git show HEAD~1
+  189  git rebase --interactive HEAD~2
+  190  git log --oneline
+  191  git rebase --interactive --root
+  192  git log --oneline
+  193  git rebase main
+  194  git log --oneline
+  195  git rebase --interactive HEAD~5
+  196  git log --oneline
+  197  git log -1
+  198  git checkout main
+  199  git branch
+  200  git merge feat/add-column-references
+  201  git branch -d feat/add-column-references
+  202  git checkout fix/add-missing-rename-references
+  203  git rebase main
+  204  git log -5
+  205  git log -5 --oneline
+  206  git diff
+  207  git add .
+  208  git commit -m "fix: add missing rename table reference"
+  209  git log -5 --oneline
+  210  git rebase --interactive HEAD~2
+  211  git log -1
+  212  git checkout main
+  213  git branch
+  214  git merge fix/add-missing-rename-references
+  215  git branch
+  216  git branch -d fix/add-missing-rename-references
+  217  git log --oneline
+  218  git checkout -b feat/add-gitignore
+  219  touch .env
+  220  echo SECRET=MY_SECRET >> .env
+  221  git status
+  222  touch .gitignore
+  223  git status
+  224  echo ".env" >> .gitignore
+  225  git status
+  226  git add .
+  227  git commit -m "feat: add .gitignore"
+  228  touch sample.env
+  229  git status
+  230  echo SECRET= >> sample.env
+  231  git add .
+  232  git commit -m "feat: add sample.env"
+  233  git log --oneline -5
+  234  git rebase --interactive HEAD~2
+  235  git log -1
+  236  git checkout main
+  237  git branch
+  238  git merge feat/add-gitignore
+  239  git branch -d feat/add-gitignore
+  240  git log --oneline
+  241  git log
+  242  history
+  243  history > git.log
