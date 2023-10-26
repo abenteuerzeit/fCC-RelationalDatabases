@@ -18,21 +18,28 @@ MAIN_MENU() {
   # Fetch the minimum and maximum service IDs for validation
   MIN_ID=$($PSQL "SELECT MIN(service_id) FROM services;")
   MAX_ID=$($PSQL "SELECT MAX(service_id) FROM services;")
+  echo $MIN_ID $MAX_ID
 
-  case $SERVICE_ID_SELECTED in
-    [$MIN_ID-$MAX_ID]) BOOK_APPOINTMENT ;;
-    *) MAIN_MENU "I could not find that service." ;;
-  esac
+  if [[ $SERVICE_ID_SELECTED -ge $MIN_ID && $SERVICE_ID_SELECTED -le $MAX_ID ]]
+  then
+    BOOK_APPOINTMENT
+  else
+      MAIN_MENU "I could not find that service."
+  fi
 }
 
 DISPLAY_SERVICES() {
   # Display services
   SERVICES=$($PSQL "SELECT service_id, name FROM services ORDER BY service_id;")
-  echo "$SERVICES" | while read -r SERVICE_ID BAR NAME
+  echo "$SERVICES" | while IFS="|" read -r SERVICE_ID NAME
   do
+    TRIM_REGEX="s/^[ \t]*//;s/[ \t]*$//"
+    SERVICE_ID=$(echo "$SERVICE_ID" | sed "$TRIM_REGEX")
+    NAME=$(echo "$NAME" | sed "$TRIM_REGEX")
     echo "$SERVICE_ID) $NAME"
   done
 }
+
 
 BOOK_APPOINTMENT() {
   SERVICE_EXISTENCE=$($PSQL "SELECT name FROM services WHERE service_id='$SERVICE_ID_SELECTED';" | sed -E 's/^ *| *$//g')
