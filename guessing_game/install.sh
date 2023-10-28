@@ -116,7 +116,7 @@ USERS_TABLE=$(PRETTIFY_TABLE_OUTPUT "$($PSQL "\d users" 2>&1)")
 GAMES_TABLE=$(PRETTIFY_TABLE_OUTPUT "$($PSQL "\d games" 2>&1)")
 
 display_color_text $GREEN "Generating README.md..."
-cat > number_guessing_game/README.md <<EOL
+cat > README.md <<EOL
 # Number Guessing Game
 
 This project is a simple number guessing game where users try to guess a randomly generated number.
